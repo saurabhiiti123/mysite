@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>LearnX</title>
+	
+
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+	
+	<style type="text/css">
+html,body{
+    height:1000px;
+    background-image: url(sign.png);
+}
+.opaque-navbar {
+    background-color: rgba(0,0,0,0.8);
+  /* Transparent = rgba(0,0,0,0) / Translucent = (0,0,0,0.5)  */
+    height: 60px;
+    border-bottom: 0px;
+    transition: background-color .5s ease 0s;
+}
+
+.opaque-navbar.opaque {
+    background-color: rgba(0,0,0,0.4);
+    height: 60px;
+    transition: background-color .5s ease 0s;
+}
+
+ul.dropdown-menu {
+    background-color: black;
+}
+.add{
+    text-align: left;
+}
+a:hover{
+color:red !important;
+}
+</style>
+</head>
+<body>
+
+	<header>
+
+<nav class="navbar navbar-inverse navbar-fixed-top opaque-navbar">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+                <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand" style="color: steelblue">LearnX</a>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="collapse navbar-collapse" id="mainNavBar">
+            <ul class="nav navbar-nav">
+                <li><a href="#" style="color: steelblue">Home</a></li>
+                <li><a href="#" style="color:steelblue">About</a></li>
+                <li><a href="#" style="color:steelblue">Contact</a></li>
+          </ul>
+
+     <ul class="nav navbar-nav pull-right">
+      <li><a href="signin.html"  id="k">Sign up</a></li>
+      <li><a href="login.html">Log in</a></li>
+      </ul>
+    </div>
+    </div>
+</nav>
+		<div>
+			<br>
+			<br>
+			<div class="container">
+				<h1 style="font-size: 800%">Sign Up</h1>
+			</div> <!-- end container -->
+		</div> <!-- end jumbotron -->
+	</header>
+	<br><br>
+	<div class="container">
+	<div class="btn-group">
+		<button class="btn-primary btn-large" id="learn">LEARNERS</button>
+		<button class="btn-primary btn-large" id="teach">INSTRUCTOR</button>
+	</div>
+</div>
+<br>
+<br>
+<!--common form-->
+	<div>
+		<div class="container">
+			<form method="post" action="" role="form"  id="COMMON" style="display: none">
+
+				<div class="form-group">
+					<label for="form-elem-1" class="control-label" >First Name</label>
+					<input type="text" id="form-elem-1" class="form-control"  style="width: 50%"name="first_name">
+					 
+				</div>
+				<div class="form-group">
+					<label for="form-elem-2" class="control-label" >Last Name</label>
+					<input type="text" id="form-elem-2" class="form-control" style="width: 50%"name="last_name">
+					
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-3" class="control-label" >Email</label>
+					<input type="email" id="form-elem-3" class="form-control" style="width: 50%" name="Email">
+					<p class="help-block" color="red">Enter valid Email address</p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-12" class="control-label">Password</label>
+					<input type="password" id="form-elem-12" class="form-control" style="width: 50%" name="password">
+					<p class="help-block">Length of password must be between 8 to 15 character</p>
+					
+				</div>
+				<div class="form-inline">
+					<p><b>Residential Address</b></p>
+					<div class="form-group">
+						<!-- <label for="form-elem-4" class="control-label">City</label> -->
+						<input type="text" id="form-elem-4" class="form-control" style="width: 100%" placeholder="Enter City" name="city">
+						<p class="help-block"></p>
+						
+					</div>
+					<div class="form-group">
+						<!-- <label for="form-elem-3" class="control-label">Country</label> -->
+						<input type="text" id="form-elem-5" class="form-control" style="width: 100%" placeholder="Enter Country" name="country">
+						<p class="help-block"></p>
+						
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="form-elem-7" class="control-label">Qualification Level</label>
+					<input type="text" id="form-elem-7" class="form-control" style="width: 50%" name="q_level">
+					<p class="help-block">e.g. B.Tech,B.Sc,M.Tech,Phd,etc</p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-8" class="control-label">Phone No.</label>
+					<input type="text" id="form-elem-8" class="form-control" style="width: 50%" placeholder="Enter contact details" name="phone_no">
+					<p class="help-block"></p>
+					
+				</div>
+<!--FORM STARTING FOR LEARNERS-->
+			<div id="learn1">
+				<div class="form-group">
+					<label for="form-elem-9" class="control-label">Skills</label>
+					<input type="text" id="form-elem-10" class="form-control" style="width: 50%" name="skills">
+					<p class="help-block">Which language do you know?</p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-10" class="control-label">Majors</label>
+					<input type="text" id="form-elem-10" class="form-control" style="width: 50%" name="majors">
+					<p class="help-block">Which field are you interested in?</p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-11" class="control-label">Percent in Last Exam</label>
+					<input type="text" id="form-elem-11" class="form-control" style="width: 50%" name="percent">
+					<p class="help-block">Last exam percent</p>
+					
+				</div>
+			</div>
+			<!--FORM FOR INSTRUCTORS-->
+				<div id="instruct">
+				<div class="form-group">
+					<label for="form-elem-22" class="control-label">Age</label>
+					<input type="text" id="form-elem-22" class="form-control" style="width: 50%" name="age">
+					<p class="help-block"></p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-23" class="control-label">Experience</label>
+					<input type="text" id="form-elem-23" class="form-control" style="width: 50%" name="experience">
+					<p class="help-block"></p>
+					
+				</div>
+				<div class="form-group">
+					<label for="form-elem-24" class="control-label">Subject</label>
+					<input type="text" id="form-elem-24" class="form-control" style="width: 50%" name="subject">
+					<p class="help-block"></p>
+					
+				</div>	
+			</div>
+				<p style="color:red;font-size: 110%">All the Fields are mandatory</p>
+				<button type="submit" class="btn btn-default">Sign in</button>
+			</form>
+			
+		</div>
+	</div> 
+
+	<br>
+	<footer>
+	</footer>
+	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>	
+	<script src="jquery-3.2.1.js"></script>
+<script>
+  $(window).scroll(function() {
+    if($(this).scrollTop() > 50)  /*height in pixels when the navbar becomes non opaque*/ 
+    {
+        $('.opaque-navbar').addClass('opaque');
+    } else {
+        $('.opaque-navbar').removeClass('opaque');
+    }
+});
+function validationFunction() {
+var m=1;
+  $('input').each(function() {
+    var value=$.trim($(this).val());
+    if(value=='')
+    {
+    	m=0;
+    }
+  	});
+  if(m) {
+    return true;
+  }
+  return false;
+}
+$(window).keydown(function(event){
+    if( (event.keyCode == 13) && (validationFunction() == false) ) {
+
+      event.preventDefault();
+      return false;
+    }
+});
+$('#form-elem-12').on('blur', function(){
+    if(this.value.length < 8){ // checks the password value length
+       
+       $(this).focus(); // focuses the current field.
+       return false; // stops the execution.
+    }
+});
+$("#learn").click(function(){
+	$("#COMMON").show();
+	$("#instruct").hide();
+	$("#learn1").show();
+    document.getElementById("COMMON").action="learner.php";
+    
+});    
+$("#teach").click(function(){
+	$("#COMMON").show();
+	$("#learn1").hide();
+	$("#instruct").show();
+    document.getElementById("COMMON").action="insform.php";
+});
+</script>
+</body>
+</html>

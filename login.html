@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>learnX</title>
+	 <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+            height:1000px;
+            background-image:url(sign.png);
+            
+        }
+    	.opaque-navbar {
+    background-color: rgba(0,0,0,0.8);
+  /* Transparent = rgba(0,0,0,0) / Translucent = (0,0,0,0.5)  */
+    height: 60px;
+    border-bottom: 0px;
+    transition: background-color .5s ease 0s;
+    
+}
+
+.opaque-navbar.opaque {
+    background-color: rgba(0,0,0,0.4);
+    height: 60px;
+    transition: background-color .5s ease 0s;
+}
+        a:hover{
+color:red !important;
+}
+    </style>
+</head>
+<body>
+<header>
+
+<nav class="navbar navbar-inverse navbar-fixed-top opaque-navbar">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+                <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand" style="color: steelblue">LearnX</a>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="collapse navbar-collapse" id="mainNavBar">
+            <ul class="nav navbar-nav">
+                <li><a href="#" style="color: steelblue">Home</a></li>
+                <li><a href="#" style="color:steelblue">About</a></li>
+                <li><a href="#" style="color:steelblue">Contact</a></li>
+          </ul>
+
+     <ul class="nav navbar-nav pull-right">
+      <li><a href="signin.html"  id="k">Sign up</a></li>
+      <li><a href="login.html">Log in</a></li>
+      </ul>
+    </div>
+    </div>
+</nav>
+		<div>
+			<br>
+			<br>
+			<div class="container">
+				<h1 style="font-size: 800%">Log In</h1>
+			</div> <!-- end container -->
+		</div> <!-- end jumbotron -->
+	</header>
+	<div class="container">
+		<div class="btn-group">
+			<button class="btn-primary btn-large" id="learn">LEARNERS</button>
+			<button class="btn-primary btn-large" id="teach">INSTRUCTORS</button>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div>
+		<div class="container-fluid">
+			<form method="post" action="" role="form" style="display: none;" id="form" >
+				<div class="form-group">
+						<label for="form-elem1" class="control-label" >E-Mail</label>
+						<input type="email" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="email">
+				</div>
+				<div class="form-group">
+						<label for="form-elem1" class="control-label">Password</label>
+						<input type="Password" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="password">
+				</div>
+				<button type="submit" class="btn btn-default">Log in</button>
+			</form>
+
+		</div>
+	</div>
+	<script>
+		 $(window).scroll(function() {
+    if($(this).scrollTop() > 50)  /*height in pixels when the navbar becomes non opaque*/ 
+    {
+        $('.opaque-navbar').addClass('opaque');
+    } else {
+        $('.opaque-navbar').removeClass('opaque');
+    }
+});
+		 $("#learn").click(function(){
+	$("#form").show();
+});
+$("#teach").click(function(){
+	$("#form").show();
+});
+	$('#form-elem-12').on('blur', function(){
+    if(this.value.length < 8){ // checks the password value length
+       
+       $(this).focus(); // focuses the current field.
+       return false; // stops the execution.
+    }
+});
+$("#learn").click(function(){
+	
+    document.getElementById("form").action="lform.php";
+    
+});    
+$("#teach").click(function(){
+	
+    document.getElementById("form").action="iform.php";
+});
+    </script>
+</body>
+</html>
