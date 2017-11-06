@@ -10,7 +10,7 @@
 	<style type="text/css">
 		html,body{
     margin: 0px;
-    background-image: url("background.jpg");
+    background-image: url(images/background.jpg);
     background-attachment: "fixed";
    
     
@@ -60,8 +60,9 @@ li:hover{
           </ul>
 
      <ul class="nav navbar-nav pull-right">
-      <li><a href="signin.html">Sign up</a></li>
-      <li><a href="login.html">Log in</a></li>
+      <li id="signi" style="visibility: visible;"><a href="signin.html">Sign up</a></li>
+      <li id="logi" style="visibility: visible;"><a href="login.html">Log in</a></li>
+      <li style="visibility:hidden" id="logo"><a href="logout.php" >Logout</a></li>
       </ul>
     </div>
     </div>
@@ -79,7 +80,7 @@ li:hover{
         while(($ele=mysqli_fetch_assoc($row))!=null){
             $course_name=$ele["course_name"];
            echo '  <div style="border:2px solid black;height: 300px;padding:15px;width:24%;float: left;margin-right: 40px;background-color:transparent" class="Courses">
-			<img src="b1.jpg" alt="Machine Learning">
+			<img src="images/b1.jpg" alt="Machine Learning">
 			<br><p style="font-size: 150%;"><a href="session_write.php?c_id='.$ele["course_id"].'" style="text-decoration: none;color: black;"><br>'.$course_name.'</a></p>
 		</div>';
             
@@ -87,10 +88,28 @@ li:hover{
         mysqli_close($conn);
 		
 		?>
+
 		
 		
 	</div>
 	</div>
 </div>
+<script type="text/javascript">
+    
+  <?php
+  session_start();
+    if(isset($_SESSION["acct_id"])){
+        echo '$("#signi").css("visibility","hidden");';
+      echo '$("#logi").css("visibility","hidden");';
+      echo '$("#logo").css("visibility","visible");';
+    }
+     else{
+          echo '$("#signi").css("visibility","visible");';
+      echo '$("#logi").css("visibility","visible");';
+      echo '$("#logo").css("visibility","hidden");';
+     }
+   
+    ?>
+</script>
 </body>
 </html>

@@ -76,7 +76,7 @@ if($conn){
     if(!mysqli_query($conn,$sql)){
         echo "<br>".mysqli_error($conn);
     }
-    $trigger="delimiter //
+    /*$trigger="delimiter //
     create definer='root'@'localhost' trigger iseligible
     before insert on $db.Enrolls
     for each row        
@@ -99,7 +99,19 @@ if($conn){
     ";
     if(!mysqli_query($conn,$trigger)){
         echo mysqli_error($conn);
-    }
+    }*/
+    $sql="create table $db.DiscussionForum(
+    question_id int primary key AUTO_INCREMENT,
+    course_id int,
+    question varchar(100),
+    answer varchar(400),
+    acct_id int ,
+    constraint da foreign key(acct_id) references $db.Account(acct_id)
+    );";
+        if(!mysqli_query($conn,$sql)){
+            echo mysqli_error($conn);
+        }
+    
     
         
     

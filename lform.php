@@ -13,8 +13,8 @@ session_start();
         where Account.email_id='$username' and Account.password='$password';";
         if(($row=mysqli_fetch_assoc(mysqli_query($conn,$sql)))!=NULL){
             $_SESSION["acct_id"]=$row["acct_id"];
-            echo $_SESSION["acct_id"];
-            echo '<script>alert("'.$username.'Logged in");window.location.assign("course_page.php");</script>';
+            
+            echo '<script>alert("'.$username.'Logged in");window.location.assign("homepage.php?logout=1");</script>';
             
             
         }

@@ -68,6 +68,8 @@ li:hover{
     $contents=$ele["contents"];
     $duration=$ele["duration"];$cid=$ele["course_id"];
     $no_student=mysqli_fetch_assoc(mysqli_query($conn,"select count(acct_id) from Enrolls where course_id='$cid'"))["count(acct_id)"];
+    
+    
     ?>
 
 <nav class="navbar navbar-inverse navbar-fixed-top opaque-navbar">
@@ -100,13 +102,14 @@ li:hover{
 </nav>
 <div class="container-fluid">
     <p class="about" style="margin-top:55px;margin-left:20px;text-indent: 50px;padding-left: 5px;">
-         <img src="b1.jpg" style="padding: 5px;float: left;" /><b style="font-size: 400%;color:LIGHTSTEELBLUE;text-indent:50px;margin-bottom: 0px" id="course_name">
+         <img src="images/b1.jpg" style="padding: 5px;float: left;" /><b style="font-size: 400%;color:LIGHTSTEELBLUE;text-indent:50px;margin-bottom: 0px" id="course_name">
              <?php echo $course_name?>
          </b>
     <br></p>
     <p style="font-size: 220%;padding:10px;font-family: 'Acme'" id="description"> <?php echo $description?></p>
-    <input type="checkbox" name="enroll" onclick="myfunction()"  /><b style="font-size: 120%;color: red">I agree to all terms and conditions</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <button type="button" class="btn btn-primary" style="visibility: hidden;" >ENROLL ME</button>
+    <div style="visibility:hidden;" id="enrollopt"><input type="checkbox"  onclick="myfunction()"  /><b style="font-size: 120%;color: red">I agree to all terms and conditions</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-primary" style="visibility: hidden;" id="enroll" >ENROLL ME</button>
+    </div>
 </div>
 <br>
 <div class="row">
@@ -118,16 +121,24 @@ li:hover{
     <div class="col-sm-3"><div style="border:1px solid black;margin:10px;">
         <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%" ><img src="clock.png" style="margin-right: 15px" >Length:&nbsp;&nbsp;&nbsp;<span id="duration"><?php echo $duration." Weeks"?></span>
         <hr style="color: black;margin:2px;width:85%;margin-left: 20px">
-        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="graduation-cap.png"><?php echo "Subject : ".$ele["subject"]?></p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
-        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="comment-o.png">Languages:English</p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
-        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="bank.png">Institution:IIT INDORE</p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
-        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="tag-fill.png">Price:FREE<br>Add a Verified Certificate at a cost of 2,000 Rupees </p>      
+        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="images/graduation-cap.png"><?php echo "Subject : ".$ele["subject"]?></p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
+        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="images/comment-o.png">Languages:English</p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
+        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="images/bank.png">Institution:IIT INDORE</p><hr style="color: black;margin:2px;width:85%;margin-left: 20px">
+        <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%"><img src="images/tag-fill.png">Price:FREE<br>Add a Verified Certificate at a cost of 2,000 Rupees </p>      
         <hr style="color: black;margin:2px;width:85%;margin-left: 20px">
         <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%">Total Number of Students:<span id="no_student"><?php echo $no_student?></span><br> </p>
         <hr style="color: black;margin:2px;width:85%;margin-left: 20px">
         <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%">Prerequisite: <?php echo $ele["prerequisite"]?> </p>               
     </div></div>
 </div>
+ <div class="row">
+     <div style="padding:50px" class="col-sm-4">
+         <button class="btn-info btn-large" style="font-size:150%;visibility:visible;" onclick=quiz() id="quizt">Take Quiz.</button>
+     </div>
+     <div class="col-sm-7">
+         <button class="btn-info btn-large" style="text-allign:centre;font-size:150%;visibility:visible;" onclick=discuss() id="discuss">DISCUSSION Forum</button>
+     </div>
+ </div>
   <script src="jquery-3.2.1.js"></script>
 <script>
  $(window).scroll(function() {
@@ -141,18 +152,48 @@ li:hover{
   function myfunction(){
 if(!($("input[type='checkbox']").is(':checked')))
 {
-$("button").css("visibility","hidden");
+$("#enroll").css("visibility","hidden");
 // $(this).css("font-size","200%");
 }
 else{
-    $("button").css("visibility","visible");
+    $("#enroll").css("visibility","visible");
 }}
 
     
-    $("button").click(function(){
+    $("#enroll").click(function(){
         window.location.assign("enroll.php");
         
     })
+    $
+   <?php
+    if(!isset($_SESSION["acct_id"])){
+        echo '$("#enrollopt").css("visibility","visible");' ;
+        
+    }
+      else{
+             $aid=$_SESSION["acct_id"];
+            $cid=$_SESSION["course_id"];
+              $query="select *from Enrolls where acct_id=$aid and course_id=$cid";
+                $row=mysqli_query($conn,$query);
+          $row=mysqli_fetch_assoc($row);
+          if($row==NULL){
+              echo '$("#enrollopt").css("visibility","visible");' ;
+          }
+          else{
+              echo '$("#quizt").css("visibility","visible");';
+              
+          }
+          
+            }
+        mysqli_close($conn);
+        ?>
+    function quiz(){
+        window.location.assign('quiz.php');
+    }
+    function discuss(){
+        window.location.assign("discussion.php");
+    }
+
     
 
 </script>

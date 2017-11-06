@@ -5,4 +5,8 @@ session_start();
         
         echo '<script>window.location.assign("course_page.php");</script>';
     }
+    if(isset($_GET['q_id'])){
+        $_SESSION['q_id']=$_GET['q_id'];
+        echo '<script>window.location.assign("discussion.php");</script>';
+    }
 ?>
