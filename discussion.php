@@ -56,14 +56,15 @@ textarea {
             <a href="#" class="navbar-brand" class="active">LearnX</a>
         </div>
         <div class="collapse navbar-collapse" id="mainNavBar">
-            <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav">
                 <li><a href="homepage.php">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
-          </ul>
+          </ul>       
      <ul class="nav navbar-nav pull-right">
-      <li><a href="signin.html">Sign up</a></li>
-      <li><a href="login.html">Log in</a></li>
+      <li id="signi" style="visibility: visible;"><a href="signin.html">Sign up</a></li>
+      <li id="logi" style="visibility: visible;"><a href="login.html">Log in</a></li>
+      <li style="visibility:hidden" id="logo"><a href="logout.php" >Logout</a></li>
       </ul>
     </div>
     </div>
@@ -71,10 +72,10 @@ textarea {
 <br>
 <br>
 <div class="container-fluid">
-	<div class="col-sm-12 text-capitalize text-center" style="font-size: 400%;">discussion form</div>
+    <div class="col-sm-12 text-capitalize text-center" style="font-size: 400%;padding:10px;">Discussion Forum</div>
 	
 	<div class="row">
-			<div class="col-sm-5">
+			<div class="col-sm-5" id="ask" style="visibility:hidden">
 			<form action="discusswrite.php" method="POST">
 			    
 				<textarea class="autofit" placeholder="Post Your Question Here" name="question"></textarea>
@@ -85,26 +86,26 @@ textarea {
 			<div class="col-sm-7">
 				<h2 class="">Previously asked Questions</h2>
 				<div class="panel-group" id="accordion">
-				<?php
-    $conn=mysqli_connect("localhost","root","","learnX");
-                    $sql="select *from DiscussionForum;";
-                  $row=mysqli_query($conn,$sql);
+				<?php session_start();
+    $conn=mysqli_connect("localhost","root","","learnX");$cid=$_SESSION["course_id"];
+                    $sql="select * from DiscussionForum where course_id=$cid";
+                  $row=mysqli_query($conn,$sql);$c=0;
                   while(($ele=mysqli_fetch_assoc($row))!=null){
-                      
+                      $c++;
                    echo' <div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a href="#content-1" data-toggle="collapse" data-parent="#accordion">'.$ele["question"].'</a>
+							<a href="#content-'.$c.'" data-toggle="collapse" data-parent="#accordion">'.$ele["question"].'</a>
 						</h4>
 					</div>
-					<div class="panel-collapse collapse in" id="content-1">
-                    <button class="btn btn-default" onclick=myfunc('.$ele["question_id"].')>Answer</button>
+					<div class="panel-collapse collapse in" id="content-'.$c.'">
+                    <button class="btn btn-default" onclick=myfunc('.$ele["question_id"].') id="answerbutton">Answer</button>
 						<div class="panel-body">
 							<p>'.$ele["answer"].'</p>
 						</div>
 					</div>
 				</div>';
-                  }mysqli_close($conn);
+                  }
                     ?>
 				
 			</div>
@@ -121,18 +122,40 @@ textarea {
 
 
 
-<script type="text/javascript">
-    <?php session_start();
+
+    <?php 
     if(isset($_SESSION['q_id']))
-       { echo '$("#ansform").css("visibility","visible");';}
+       { echo '<script>$("#ansform").css("visibility","visible");
+       
+       </script>';
+       }
+    
+    
+    
     ?>
-    function myfunc(s){
+    
+ 
+<script type="text/javascript">
+       function myfunc(s){
            //  $("#ansform").css("visibility","visible");
-        window.location.assign("session_write.php?q_id="+s);
+           var x="hasajsl";
+           
+           <?php
+        if(isset($_SESSION["acct_id"])){$aid=$_SESSION['acct_id'];
+            $sql="select * from Instructor where acct_id=$aid";
+            $row=mysqli_query($conn,$sql);
+            $row=mysqli_fetch_assoc($row);
+            if($row!=null){
+                echo 'window.location.assign("session_write.php?q_id="+s);';
+            }
+         else{
+             echo 'alert("Only Instructors are given privilege to answer the questions");';
+         }
+        }
+        ?>
+        
     }
     
-    </script>
-<script type="text/javascript">
 	 $(window).scroll(function() {
     if($(this).scrollTop() > 50)  /*height in pixels when the navbar becomes non opaque*/ 
     {
@@ -199,6 +222,33 @@ $('textarea.autofit').on({
       }
     }
 })});
+    
+      <?php
+// session_start();
+    if(isset($_SESSION["acct_id"])){
+        $aid=$_SESSION["acct_id"];
+            $cid=$_SESSION["course_id"]; 
+              
+            $query1="select *from Creates where acct_id=$aid and course_id=$cid";
+                
+            $row1=mysqli_query($conn,$query1);
+          
+        $row1=mysqli_fetch_assoc($row1);
+        
+          if($row1==NULL){
+              echo '$("#ask").css("visibility","visible");' ;
+          }
+        echo '$("#signi").css("visibility","hidden");';
+      echo '$("#logi").css("visibility","hidden");';
+      echo '$("#logo").css("visibility","visible");';
+    }
+     else{
+          echo '$("#signi").css("visibility","visible");';
+      echo '$("#logi").css("visibility","visible");';
+      echo '$("#logo").css("visibility","hidden");';
+     }
+   
+    ?>
    
              
          

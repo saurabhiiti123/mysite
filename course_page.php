@@ -70,6 +70,30 @@ li:hover{
     $no_student=mysqli_fetch_assoc(mysqli_query($conn,"select count(acct_id) from Enrolls where course_id='$cid'"))["count(acct_id)"];
     
     
+    if(!isset($_SESSION["acct_id"])){
+        echo '<script>$("#enrollopt").css("visibility","visible");</script>' ;
+        
+        
+    }
+      else{
+          $aid=$_SESSION["acct_id"];
+            $cid=$_SESSION["course_id"]; 
+              $query="select *from Enrolls where acct_id=$aid and course_id=$cid";
+                $row=mysqli_query($conn,$query);
+          $row=mysqli_fetch_assoc($row);
+          if($row==NULL){
+              echo '<script>$("#enrollopt").css("visibility","visible");</script>' ;
+          }
+          else{
+              echo '<script>$("#specific").css("visibility","visible");</script>';
+             // echo '<script>alert("dhakdj")</script>';
+              
+          }
+        
+            }
+    
+    
+    
     ?>
 
 <nav class="navbar navbar-inverse navbar-fixed-top opaque-navbar">
@@ -93,9 +117,10 @@ li:hover{
                 <li><a href="#">Contact</a></li>
           </ul>
 
-     <ul class="nav navbar-nav pull-right">
-      <li><a href="signin.html">Sign up</a></li>
-      <li><a href="login.html">Log in</a></li>
+      <ul class="nav navbar-nav pull-right">
+      <li id="signi" style="visibility: visible;"><a href="signin.html">Sign up</a></li>
+      <li id="logi" style="visibility: visible;"><a href="login.html">Log in</a></li>
+      <li style="visibility:hidden" id="logo"><a href="logout.php" >Logout</a></li>
       </ul>
     </div>
     </div>
@@ -131,12 +156,12 @@ li:hover{
         <p style="padding: 2px;margin-bottom: 0px;margin-left: 30px;font-size: 120%">Prerequisite: <?php echo $ele["prerequisite"]?> </p>               
     </div></div>
 </div>
- <div class="row">
+ <div class="row" id="specific" style="visibility:hidden" >
      <div style="padding:50px" class="col-sm-4">
-         <button class="btn-info btn-large" style="font-size:150%;visibility:visible;" onclick=quiz() id="quizt">Take Quiz.</button>
+         <button class="btn-info btn-large" style="font-size:150%;" onclick=quiz()  >Take Quiz.</button>
      </div>
      <div class="col-sm-7">
-         <button class="btn-info btn-large" style="text-allign:centre;font-size:150%;visibility:visible;" onclick=discuss() id="discuss">DISCUSSION Forum</button>
+         <button class="btn-info btn-large" style="text-allign:centre;font-size:150%;"  id="dis">DISCUSSION Forum</button>
      </div>
  </div>
   <script src="jquery-3.2.1.js"></script>
@@ -163,36 +188,52 @@ else{
     $("#enroll").click(function(){
         window.location.assign("enroll.php");
         
-    })
-    $
-   <?php
-    if(!isset($_SESSION["acct_id"])){
-        echo '$("#enrollopt").css("visibility","visible");' ;
-        
-    }
-      else{
-             $aid=$_SESSION["acct_id"];
-            $cid=$_SESSION["course_id"];
-              $query="select *from Enrolls where acct_id=$aid and course_id=$cid";
-                $row=mysqli_query($conn,$query);
-          $row=mysqli_fetch_assoc($row);
-          if($row==NULL){
-              echo '$("#enrollopt").css("visibility","visible");' ;
-          }
-          else{
-              echo '$("#quizt").css("visibility","visible");';
-              
-          }
-          
-            }
-        mysqli_close($conn);
-        ?>
+    });
+    
+   
     function quiz(){
         window.location.assign('quiz.php');
     }
-    function discuss(){
-        window.location.assign("discussion.php");
+    
+    $("#dis").click(function(){
+         window.location.assign("discussion.php");
+    })
+    
+    
+      <?php
+// session_start();
+    if(isset($_SESSION["acct_id"])){
+        echo '$("#signi").css("visibility","hidden");';
+      echo '$("#logi").css("visibility","hidden");';
+      echo '$("#logo").css("visibility","visible");';
+        $aid=$_SESSION["acct_id"];
+            $cid=$_SESSION["course_id"]; 
+              $query="select *from Enrolls where acct_id=$aid and course_id=$cid";
+            $query1="select *from Creates where acct_id=$aid and course_id=$cid";
+                $row=mysqli_query($conn,$query);
+            $row1=mysqli_query($conn,$query1);
+          $row=mysqli_fetch_assoc($row);
+        $row1=mysqli_fetch_assoc($row1);
+        
+          if($row==NULL&&$row1==NULL){
+              echo '$("#enrollopt").css("visibility","visible");' ;
+          }
+          else{
+              echo '$("#specific").css("visibility","visible");';
+             // echo '<script>alert("dhakdj")</script>';
+              
+          }
+    
     }
+     else{
+          echo '$("#signi").css("visibility","visible");';
+      echo '$("#logi").css("visibility","visible");';
+      echo '$("#logo").css("visibility","hidden");';
+         echo '$("#enrollopt").css("visibility","visible");';
+     }
+   
+    ?>
+    
 
     
 

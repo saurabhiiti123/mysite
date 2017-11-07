@@ -84,9 +84,10 @@ color:red !important;
                 <li><a href="#" style="color:steelblue">Contact</a></li>
           </ul>
 
-     <ul class="nav navbar-nav pull-right">
-      <li><a href="signin.html"  id="k">Sign up</a></li>
-      <li><a href="login.html">Log in</a></li>
+      <ul class="nav navbar-nav pull-right">
+      <li id="signi" style="visibility: visible;"><a href="signin.html">Sign up</a></li>
+      <li id="logi" style="visibility: visible;"><a href="login.html">Log in</a></li>
+      <li style="visibility:hidden" id="logo"><a href="logout.php" >Logout</a></li>
       </ul>
     </div>
     </div>
@@ -188,6 +189,21 @@ color:red !important;
                window.location.assign("session_write.php?c_id="+s);
                
         }
+        
+          <?php
+// session_start();
+    if(isset($_SESSION["acct_id"])){
+        echo '$("#signi").css("visibility","hidden");';
+      echo '$("#logi").css("visibility","hidden");';
+      echo '$("#logo").css("visibility","visible");';
+    }
+     else{
+          echo '$("#signi").css("visibility","visible");';
+      echo '$("#logi").css("visibility","visible");';
+      echo '$("#logo").css("visibility","hidden");';
+     }
+   
+    ?>
         
 	</script>
       

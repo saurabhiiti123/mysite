@@ -15,6 +15,7 @@
                </script>';
             }
             else{
+                
                 $enroll="insert into Enrolls 
                 values($a_id,$cid,current_timestamp());";
                 

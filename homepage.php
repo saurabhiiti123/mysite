@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        
 	<style type="text/css">
 		html,body{
     margin: 0px;
@@ -73,7 +74,7 @@ li:hover{
 	<div><h1>Courses Available</h1>
 		<br><div style="margin-left: 200px;">
 		<?php
-		
+		session_start();
 		$conn=mysqli_connect("localhost","root","","learnX");
 		$sql="select * from Courses;";
         $row=mysqli_query($conn,$sql);
@@ -85,6 +86,7 @@ li:hover{
 		</div>';
             
         }
+    
         mysqli_close($conn);
 		
 		?>
@@ -94,10 +96,12 @@ li:hover{
 	</div>
 	</div>
 </div>
+
+
 <script type="text/javascript">
-    
+   
   <?php
-  session_start();
+// session_start();
     if(isset($_SESSION["acct_id"])){
         echo '$("#signi").css("visibility","hidden");';
       echo '$("#logi").css("visibility","hidden");';
@@ -110,6 +114,8 @@ li:hover{
      }
    
     ?>
+    
 </script>
+
 </body>
 </html>
