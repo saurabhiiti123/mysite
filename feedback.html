@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    	.opaque-navbar {
+    background-color: rgba(0,0,0,0.8);
+  /* Transparent = rgba(0,0,0,0) / Translucent = (0,0,0,0.5)  */
+    height: 60px;
+    border-bottom: 0px;
+    transition: background-color .5s ease 0s;
+}
+
+.opaque-navbar.opaque {
+    background-color: rgba(0,0,0,0.4);
+    height: 60px;
+    transition: background-color .5s ease 0s;
+}
+textarea {
+    min-width:400px;
+    width:400px;
+    max-width:500px;
+    resize:none;
+    font-size:18px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    min-height: 50px;
+}
+    </style>
+</head>
+<body>
+	<div class="container-fluid">
+	<nav class="navbar navbar-inverse navbar-fixed-top opaque-navbar">
+    <div class="container-fluid">
+
+        <!-- Logo -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
+                <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">LearnX</a>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="collapse navbar-collapse" id="mainNavBar">
+            <ul class="nav navbar-nav">
+                <li><a href="#" >Home</a></li>
+                <li><a href="#" >About</a></li>
+                <li><a href="#" >Contact</a></li>
+          </ul>
+
+     <ul class="nav navbar-nav pull-right">
+      <li><a href="#"  id="k">Sign up</a></li>
+      <li><a href="#">Log in</a></li>
+      </ul>
+    </div>
+    </div>
+</nav>
+<br>
+<br>
+	<div>	<div style="font-size: 500%" class="text-capitalize text-center">Feedback Form
+	</div>
+	<div class="text-center"><p>How would you likely recommend this course to someone?</p>
+		<input type="radio" name="1" style="margin:5px;cursor: pointer;"><b>1</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="2" style="margin: 5px;cursor: pointer;"><b>2</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="3" style="margin: 5px;cursor: pointer;"><b>3</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="4" style="margin: 5px;cursor: pointer;"><b>4</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="5" style="margin: 5px;cursor: pointer;"><b>5</b>&nbsp;&nbsp;&nbsp;</div>
+	<div ><br><br>
+		<div style="font-size: 150%;">Comments(0)</div>
+		<textarea class="autofit" placeholder="Give review of our course"></textarea><br>
+		<a class="btn btn-primary" href="toogle_sasg.html">Comment</a>
+	</div>
+
+	</div>
+	
+<script type="text/javascript">
+	 $(window).scroll(function() {
+    if($(this).scrollTop() > 50)  /*height in pixels when the navbar becomes non opaque*/ 
+    {
+        $('.opaque-navbar').addClass('opaque');
+    } else {
+        $('.opaque-navbar').removeClass('opaque');
+    }
+});
+	 (function(){
+var measurer = $('<span>', {
+   							style: "display:inline-block;word-break:break-word;visibility:hidden;white-space:pre-wrap;"})
+   .appendTo('body');
+function initMeasurerFor(textarea){
+  if(!textarea[0].originalOverflowY){
+  	textarea[0].originalOverflowY = textarea.css("overflow-y");    
+  }  
+  var maxWidth = textarea.css("max-width");
+  measurer.text(textarea.text())
+      .css("max-width", maxWidth == "none" ? textarea.width() + "px" : maxWidth)
+      .css('font',textarea.css('font'))
+      .css('overflow-y', textarea.css('overflow-y'))
+      .css("max-height", textarea.css("max-height"))
+      .css("min-height", textarea.css("min-height"))
+      .css("min-width", textarea.css("min-width"))
+      .css("padding", textarea.css("padding"))
+      .css("border", textarea.css("border"))
+      .css("box-sizing", textarea.css("box-sizing"))
+}
+function updateTextAreaSize(textarea){
+	textarea.height(measurer.height());
+  var w = measurer.width();
+  if(textarea[0].originalOverflowY == "auto"){
+     	var mw = textarea.css("max-width");
+      if(mw != "none"){
+     		if(w == parseInt(mw)){
+      		textarea.css("overflow-y", "auto");
+     		} else {
+         	textarea.css("overflow-y", "hidden");
+     		}
+      }
+   }
+   textarea.width(w + 2);
+}
+$('textarea.autofit').on({
+    input: function(){      
+      	var text = $(this).val();  
+        if($(this).attr("preventEnter") == undefined){
+      	   text = text.replace(/[\n]/g, "<br>&#8203;");
+        }
+      	measurer.html(text);                       
+        updateTextAreaSize($(this));       
+    },
+    focus: function(){
+     initMeasurerFor($(this));
+    },
+    keypress: function(e){
+    	if(e.which == 13 && $(this).attr("preventEnter") != undefined){
+      	e.preventDefault();
+      }
+    }
+});
+})();
+</script>
+</body>
+</html>
