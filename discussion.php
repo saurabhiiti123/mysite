@@ -88,14 +88,14 @@ textarea {
 				<div class="panel-group" id="accordion">
 				<?php session_start();
     $conn=mysqli_connect("localhost","root","","learnX");$cid=$_SESSION["course_id"];
-                    $sql="select * from DiscussionForum where course_id=$cid";
+                    $sql="select * from DiscussionForum inner join Account on Account.acct_id=DiscussionForum.acct_id where course_id=$cid";
                   $row=mysqli_query($conn,$sql);$c=0;
                   while(($ele=mysqli_fetch_assoc($row))!=null){
                       $c++;
                    echo' <div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
-							<a href="#content-'.$c.'" data-toggle="collapse" data-parent="#accordion">'.$ele["question"].'</a>
+							<a href="#content-'.$c.'" data-toggle="collapse" data-parent="#accordion">'.$ele["question"].'<span style="float:right;">Asked by-'.$ele["first_name"]." ".$ele["last_name"].'<span></a>
 						</h4>
 					</div>
 					<div class="panel-collapse collapse in" id="content-'.$c.'">

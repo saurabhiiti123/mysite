@@ -67,17 +67,19 @@ textarea {
 <br>
 	<div>	<div style="font-size: 500%" class="text-capitalize text-center">Feedback Form
 	</div>
+        <form action="feedbackeval.php" method="post">
 	<div class="text-center"><p>How would you likely recommend this course to someone?</p>
-		<input type="radio" name="1" style="margin:5px;cursor: pointer;"><b>1</b>&nbsp;&nbsp;&nbsp;
-		<input type="radio" name="2" style="margin: 5px;cursor: pointer;"><b>2</b>&nbsp;&nbsp;&nbsp;
-		<input type="radio" name="3" style="margin: 5px;cursor: pointer;"><b>3</b>&nbsp;&nbsp;&nbsp;
-		<input type="radio" name="4" style="margin: 5px;cursor: pointer;"><b>4</b>&nbsp;&nbsp;&nbsp;
-		<input type="radio" name="5" style="margin: 5px;cursor: pointer;"><b>5</b>&nbsp;&nbsp;&nbsp;</div>
+		<input type="radio" name="feed" value="1" style="margin:5px;cursor: pointer;"><b>1</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio"  name="feed" value="2" style="margin: 5px;cursor: pointer;"><b>2</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="feed" value="3" style="margin: 5px;cursor: pointer;"><b>3</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="feed" value="4" style="margin: 5px;cursor: pointer;"><b>4</b>&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="feed" value="5" style="margin: 5px;cursor: pointer;"><b>5</b>&nbsp;&nbsp;&nbsp;
+		</div>
 	<div ><br><br>
 		<div style="font-size: 150%;">Comments(0)</div>
-		<textarea class="autofit" placeholder="Give review of our course"></textarea><br>
-		<a class="btn btn-primary" href="toogle_sasg.html">Comment</a>
-	</div>
+		<textarea class="autofit" placeholder="Give review of our course"name="comment"></textarea><br>
+        <button class="btn btn-primary">Comment</button>	</div>
+        </form>
 
 	</div>
 	

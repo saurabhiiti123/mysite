@@ -138,6 +138,59 @@ color:red !important;
 			</form>
 		</div>
 	</div>
+	<div class="container-fluid" style="margin-top:100px;margin-left: 10px;">
+		<button class="btn-info btn-large"  style="font-size: 150%" id="createexam">CREATE EXAM</button>
+	</div>
+	<br>
+	<br>
+	<div>
+		<div class="container-fluid">
+			<form method="post" action="course_create.php" role="form" style="display: none" id="formexam">
+				<div class="form-group">
+						<label for="form-elem1" class="control-label">Minimum qualify marks</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="name">
+				</div>
+				<div class="form-group">
+						<label for="form-elem2" class="control-label">Maximum Marks</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="description">
+				</div>
+				<div class="form-group">
+						<label for="form-elem3" class="control-label">Question1</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q1">
+				</div>
+				<div class="form-group">
+						<label for="form-elem6" class="control-label">Answer</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a1">
+				</div>
+				<div class="form-group">
+						<label for="form-elem4" class="control-label">Question2</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q2">
+				</div>
+                <div class="form-group">
+						<label for="form-elem6" class="control-label">Answer</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a2">
+				</div>
+				<div class="form-group">
+						<label for="form-elem5" class="control-label">Question3</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q3">
+				</div>
+				<div class="form-group">
+						<label for="form-elem6" class="control-label">Answer</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a3">
+				</div>
+				<div class="form-group">
+						<label for="form-elem6" class="control-label">Question4</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q4">
+				</div>
+				<div class="form-group">
+						<label for="form-elem6" class="control-label">Answer</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a4">
+				</div>
+				<p style="color:red;font-size: 110%">All the Fields are mandatory</p>
+				<button type="submit" class="btn btn-default">Create</button>
+			</form>
+		</div>
+	</div>
 	<div class="container-fluid" style="margin-top:50px;margin-left: 10px;">
 	    <h1>Created Courses</h1>
 	    
@@ -183,6 +236,11 @@ color:red !important;
 		 $("#create").click(function(){
              
 		 	$("form").show();
+            
+		 });
+        $("#createexam").click(function(){
+             
+		 	$("#formexam").show();
             
 		 });
     function myfunc(s){

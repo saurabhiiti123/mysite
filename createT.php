@@ -111,11 +111,40 @@ if($conn){
         if(!mysqli_query($conn,$sql)){
             echo mysqli_error($conn);
         }
+    $sql="create table $db.Exam(
+    exam_id int primary key AUTO_INCREMENT,
+    course_id int,
     
+    min_qualify_marks int,
+    max_marks int,
+    constraint fce foreign key (course_id) references $db.Courses(course_id)
+       )";
+    if(!mysqli_query($conn,$sql))
+    {
+        echo "<br>".mysqli_error($conn);
+    }
+    $Gives="create Table $db.Gives(
+    acct_id int ,foreign key(acct_id) references $db.Learner(acct_id),
+    course_id int, foreign key(course_id) references $db.Courses(course_id),
+    marks_obtained int,
+    date DATETIME);";
+    if(!mysqli_query($conn,$Gives))
+        echo "<br>".mysqli_error($conn);
+    $feed="create table $db.Feedback(
+    feedback_id int primary key AUTO_INCREMENT,
+    feedback int,
+    comments varchar(50),
+    acct_id int not null,
+    foreign key (acct_id) references $db.Learner(acct_id));";
+    if(!mysqli_query($conn,$feed))
+        echo "<br>".mysqli_error($conn);
     
         
     
-    
 }
+        
+    
+    
+
 ?>
     

@@ -24,7 +24,15 @@
                     window.location.assign("course_page.php");</script>';
                 }
                 else{
+                    $sql="select repu_required from Courses where course_id=$cid";
+                    $row=mysqli_query($conn,$sql);
+                    $row=mysqli_fetch_assoc($row);
+                    $r=$row["repu_required"];
+                    if($r==0)
                      echo '<script>alert("Cannot enroll!! You do not have the prerequisite mentioned.")
+                    window.location.assign("course_page.php");</script>';
+                    else
+                        echo '<script>alert("Cannot enroll!! You do not have the prerequisite mentioned or reputation of '.$r.' ")
                     window.location.assign("course_page.php");</script>';
                 }
                 

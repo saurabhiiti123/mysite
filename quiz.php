@@ -9,7 +9,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
- <?php 
+ <?php session_start();$aid=$_SESSION["acct_id"];$cid=$_SESSION["course_id"]
     if($_SERVER["REQUEST_METHOD"]=="POST"){$score=0;
         if(isset($_POST["question1"]))
         {
@@ -18,7 +18,7 @@
         }
         if(isset($_POST["question2"]))
         {
-            if($_POST["question2"]=="B")
+            if($_POST["question2"]==)
                 $score++;
         }if(isset($_POST["question3"]))
         {
@@ -33,7 +33,13 @@
         echo '<script>window.alert(" Your score : '.$score.'");</script>';
        
        $conn=mysqli_connect("localhost","root","","learnX");
-       $sql="insert into"
+       $sql="insert into Gives values ($aid,$cid,$score,current_timestamp())";
+       if(mysqli_query($conn,$sql)){
+           '<script>window.alert(" You have passed the deadline for this exam.\n Now You cannot pass it.\nThanks for your presence");</script>';
+       }
+                                           
+                                           
+                                       
     }
 ?>
 <div class="container">
@@ -95,7 +101,7 @@ Would you treat this as a classification or a regression problem?</div></div>
 		<li><input type="checkbox" name="question4" style="margin-left: 112px;" value="D">Machine learning is the field of allowing robots to act intelligently.</li>
 	</ul>
 	</div>
-	<div id="question5" style="display: none;"><div class="row"><div class="col-sm-1">Q5.</div><div class="col-sm-11"></div></div></div>
+	<div id="question5" style="display: none;"><div class="row"><div class="col-sm-1"></div><div class="col-sm-11"></div></div></div>
 		<br>
 		<br>
 		<div class="row">
