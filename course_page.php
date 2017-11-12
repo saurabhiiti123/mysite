@@ -164,22 +164,28 @@ li:hover{
          <button class="btn-info btn-large" style="text-allign:centre;font-size:150%;"  id="dis">DISCUSSION Forum</button>
      </div>
  </div>
- <?php if($_SESSION["acct_id"==])
+ 
+ <?php if(isset($_SESSION["acct_id"])){  $aid=$_SESSION["acct_id"];$cid=$_SESSION["course_id"];
+                                      $query1="select *from Creates where acct_id=$aid and course_id=$cid";
+                                      $row=mysqli_query($conn,$query1);
+                                      $ele=mysqli_fetch_assoc($row);
+                                      if($ele!=NULL){
+                                          
  echo'<div class="container-fluid" style="margin-top:100px;margin-left: 10px;">
 		<button class="btn-info btn-large"  style="font-size: 150%" id="createexam">CREATE EXAM</button>
 	</div>
 	<br>
 	<br>
 	<div>
-		<div class="container-fluid">
-			<form method="post" action="course_create.php" role="form" style="display: none" id="formexam">
+		<div class="container-fluid" style="padding:50px">
+			<form method="post" action="examcreate.php" role="form" style="display: none" id="formexam" style:"padding:50px">
 				<div class="form-group">
-						<label for="form-elem1" class="control-label">Minimum qualify marks</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="name">
+						<label for="form-elem1" class="control-label">Maximum Marks</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="Maximum">
 				</div>
 				<div class="form-group">
-						<label for="form-elem2" class="control-label">Maximum Marks</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="description">
+						<label for="form-elem2" class="control-label">Minimum Qualify Marks</label>
+						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="Minimum">
 				</div>
 				<div class="form-group">
 						<label for="form-elem3" class="control-label">Question1</label>
@@ -196,28 +202,18 @@ li:hover{
                 <div class="form-group">
 						<label for="form-elem6" class="control-label">Answer</label>
 						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a2">
-				</div>
-				<div class="form-group">
-						<label for="form-elem5" class="control-label">Question3</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q3">
-				</div>
-				<div class="form-group">
-						<label for="form-elem6" class="control-label">Answer</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a3">
-				</div>
-				<div class="form-group">
-						<label for="form-elem6" class="control-label">Question4</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="q4">
-				</div>
-				<div class="form-group">
-						<label for="form-elem6" class="control-label">Answer</label>
-						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="a4">
-				</div>
-				<p style="color:red;font-size: 110%">All the Fields are mandatory</p>
+				</div>				
+				
 				<button type="submit" class="btn btn-default">Create</button>
 			</form>
 		</div>
 	</div>';
+                                      echo '<script> $("#createexam").click(function(){
+             
+		 	$("#formexam").show();
+            
+		 });</script>';}
+                                      }
         
                             ?>
   <script src="jquery-3.2.1.js"></script>
@@ -279,8 +275,8 @@ else{
           else{
               echo '$("#specific").css("visibility","visible");';
              // echo '<script>alert("dhakdj")</script>';
-              if($row1!=NULL&&$row==NULL)
-              { echo '$("#quiz").css("visibility","hidden");';
+              if($row1!=NULL)
+              { echo '$("#quiz1").css("visibility","hidden");';
               }
               
           }

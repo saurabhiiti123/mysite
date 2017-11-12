@@ -114,7 +114,10 @@ if($conn){
     $sql="create table $db.Exam(
     exam_id int primary key AUTO_INCREMENT,
     course_id int,
-    
+    question_1 varchar(1000),
+    question_2 varchar(1000),
+    ans_1 varchar(20),
+    ans_2 varchar(20),
     min_qualify_marks int,
     max_marks int,
     constraint fce foreign key (course_id) references $db.Courses(course_id)
@@ -125,7 +128,7 @@ if($conn){
     }
     $Gives="create Table $db.Gives(
     acct_id int ,foreign key(acct_id) references $db.Learner(acct_id),
-    course_id int, foreign key(course_id) references $db.Courses(course_id),
+    exam_id int, foreign key(exam_id) references $db.Exam(exam_id),
     marks_obtained int,
     date DATETIME);";
     if(!mysqli_query($conn,$Gives))
