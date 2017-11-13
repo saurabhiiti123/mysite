@@ -125,6 +125,10 @@ color:red !important;
 						<label for="form-elem4" class="control-label">Prerequisite</label>
 						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="prereq">
 				</div>
+        <div class="form-group">
+          <label for="form-elem5" >Skills aquired after successful completion of course</label>
+          <input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="skills">
+        </div>
 				<div class="form-group">
 						<label for="form-elem5" class="control-label">Duration</label>
 						<input type="text" class="form-control" style="width:50%" autofocus="autofocus" required="required" name="duration">

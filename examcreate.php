@@ -11,9 +11,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     $max=$_POST["Maximum"];
     $min=$_POST["Minimum"];
     $q1=$_POST["q1"];
-    $a1=$_POST["a1"];
+    $a1=strtolower($_POST["a1"]);
     $q2=$_POST["q2"];
-    $a2=$_POST["a2"];
+    $a2=strtolower($_POST["a2"]);
 
     $sql="insert into Exam(course_id,question_1,question_2,ans_1,ans_2,min_qualify_marks,max_marks)
     	values($cid,'$q1','$q2','$a1','$a2',$min,$max);";

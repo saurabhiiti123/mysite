@@ -8,12 +8,12 @@
     	
         if(isset($_POST["ans_1"]))
         {
-            if($_POST["ans_1"]==$row["ans_1"])
+            if(strtolower($_POST["ans_1"])==$row["ans_1"])
                 $score=$score+10;
         }
         if(isset($_POST["ans_2"]))
         {
-            if($_POST["ans_2"]==$row["ans_2"])
+            if(strtolower($_POST["ans_2"])==$row["ans_2"])
                 $score=$score+20;
         }
         

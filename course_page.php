@@ -172,7 +172,12 @@ li:hover{
                                       if($ele!=NULL){
                                           
  echo'<div class="container-fluid" style="margin-top:100px;margin-left: 10px;">
+ <div class="col-sm-4">
 		<button class="btn-info btn-large"  style="font-size: 150%" id="createexam">CREATE EXAM</button>
+    </div>
+    <div class="col-sm-4">
+    <button class="btn-info btn-large"  style="font-size: 150%" id="feedback">Feedbacks given</button>
+    </div>
 	</div>
 	<br>
 	<br>
@@ -212,7 +217,20 @@ li:hover{
              
 		 	$("#formexam").show();
             
-		 });</script>';}
+		 });
+      $("#feedback").click(function(){
+             
+      window.location.assign("feedbackview.php");
+            
+     });
+
+
+     </script>';
+
+
+
+    }
+
                                       }
         
                             ?>
@@ -278,6 +296,13 @@ else{
               if($row1!=NULL)
               { echo '$("#quiz1").css("visibility","hidden");';
               }
+              
+          }
+          if($row!=NULL){
+            $sql="select * from Exam where course_id=$cid";
+            $row=mysqli_query($conn,$sql);
+            if(($row=mysqli_fetch_assoc($row))==NULL)
+              echo '$("#quiz1").css("visibility","hidden");';
               
           }
     

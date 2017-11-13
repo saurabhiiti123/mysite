@@ -51,7 +51,8 @@ if($conn){
     contents varchar(200),
     duration int,
     prerequisite varchar(40),
-    repu_required int);";
+    repu_required int,
+    skills_aquired varchar(30));";
     if(mysqli_query($conn,$cTable)){
         echo "<br>Courses created successfully";
     }
@@ -76,30 +77,7 @@ if($conn){
     if(!mysqli_query($conn,$sql)){
         echo "<br>".mysqli_error($conn);
     }
-    /*$trigger="delimiter //
-    create definer='root'@'localhost' trigger iseligible
-    before insert on $db.Enrolls
-    for each row        
-    begin
-    declare aid int;
-    declare cid int;
-    declare newskill varchar(40);
-    declare preq varchar(40);
-   
-   select prerequisite into preq
-        from Courses where course_id=new.course_id;
-    select skills into newskill 
-        from Learner where acct_id=new.acct_id;
-        if preq not like '%No prerequisite%' and preq not like '%no prequisite%' and preq not like '%No Prerequisite%' then
-            if newskill not like concat('%',preq,'%') then
-                signal sqlstate '45000'; 
-            end if;
-        end if;
-    end//
-    ";
-    if(!mysqli_query($conn,$trigger)){
-        echo mysqli_error($conn);
-    }*/
+
     $sql="create table $db.DiscussionForum(
     question_id int primary key AUTO_INCREMENT,
     course_id int,
@@ -138,10 +116,40 @@ if($conn){
     feedback int,
     comments varchar(50),
     acct_id int not null,
+    course_id int not null,
+    foreign key(course_id) references Courses(course_id);
     foreign key (acct_id) references $db.Learner(acct_id));";
     if(!mysqli_query($conn,$feed))
         echo "<br>".mysqli_error($conn);
-    
+    $trigger="
+    delimiter //
+    create trigger iseligible 
+    before insert on Enrolls
+    for each row
+    begin
+    declare repu int;
+    declare rep int;
+    declare newskill varchar(40);
+    declare preq varchar(40);
+   
+   select prerequisite into preq
+        from Courses where course_id=new.course_id;
+    select skills into newskill 
+        from Learner where acct_id=new.acct_id;
+        select repu_required into repu from courses where course_id=new.course_id;
+        select reputation into rep from Learner where acct_id=new.acct_id;
+        if preq not like '%No prerequisite%' and preq not like '%no prequisite%' and preq not like '%No Prerequisite%' then
+            if newskill not like concat('%',preq,'%') then
+                if rep<repu then
+                signal sqlstate '45000';
+                end if;
+            end if;
+        end if;
+    end//";
+    mysqli_query($conn,$trigger);
+    echo mysqli_error($conn);
+
+
         
     
 }

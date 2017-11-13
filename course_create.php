@@ -13,8 +13,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST")
     $prereq=$_POST["prereq"];
     $duration=$_POST["duration"];
     $reputation=$_POST["reputation"];
-    $insert="insert into Courses (course_name,description,contents,duration,prerequisite,repu_required)
-    values('$course_name','$description','$contents','$duration','$prereq','$reputation');";
+    $skills_acquired=$_POST["skills"];
+    $insert="insert into Courses (course_name,description,contents,duration,prerequisite,repu_required,skills_acquired)
+    values('$course_name','$description','$contents','$duration','$prereq','$reputation','$skills_aquired');";
       if(!mysqli_query($conn,$insert)){
           echo '<script>alert("There is a problem creating course\n  Try again");</script>';
       }
