@@ -148,6 +148,56 @@ if($conn){
     end//";
     mysqli_query($conn,$trigger);
     echo mysqli_error($conn);
+    $trigger2="
+    delimiter //
+    create trigger after_ins_gives
+    after insert on gives
+    for each row
+    BEGIN
+select min_qualify_marks into @min from exam where exam_id=new.exam_id;
+select course_id into @cid from exam where exam_id=new.exam_id;
+if(@min<=new.marks_obtained)THEN
+	select skills_aquired into @name from courses where course_id=@cid;
+    select reputation into @repu from learner where acct_id=new.acct_id;
+    select stars into @star from learner WHERE acct_id=new.acct_id;
+    select repu_required into @repureq from Courses where course_id=@cid;
+ 
+   select count(marks_obtained)into @count from Exam inner join gives using(exam_id) where course_id=@cid AND
+acct_id=new.acct_id and marks_obtained>min_qualify_marks;
+
+	IF (@count<=1)THEN
+	 update learner SET
+     stars=@star+1 ,reputation=@repu+@repureq where acct_id=new.acct_id;
+     
+    SELECT skills into @skill from learner where acct_id=new.acct_id;
+    if(@skill  not like concat('%',@name,'%'))THEN
+    update learner SET
+    skills=concat(@skill,',',@name) where acct_id=new.acct_id;
+    end if;
+    end if;
+end if;
+end //";
+    
+    
+    $trigger3="create trigger b_ins_gives
+    before insert on gives
+    for each row
+    BEGIN
+declare deadline int;
+declare enda datetime;
+
+select duration into deadline from courses where course_id= (select course_id from exam where exam_id=new.exam_id);
+
+select date into enda from enrolls where acct_id=new.acct_id and course_id=(select course_id from exam where exam_id=new.exam_id)  ;
+
+set @dead=(select date_add(enda,interval deadline*7 day));
+if (@dead < new.date )THEN
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT='Deadline passed';
+end if;
+
+end //";
+    
 
 
         

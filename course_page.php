@@ -298,13 +298,13 @@ else{
               }
               
           }
-          if($row!=NULL){
-            $sql="select * from Exam where course_id=$cid";
-            $row=mysqli_query($conn,$sql);
-            if(($row=mysqli_fetch_assoc($row))==NULL)
-              echo '$("#quiz1").css("visibility","hidden");';
-              
-          }
+//          if($row!=NULL){
+//            $sql="select * from Exam where course_id=$cid";
+//            $row=mysqli_query($conn,$sql);
+//            if(($row=mysqli_fetch_assoc($row))==NULL)
+//              echo '$("#quiz1").css("visibility","hidden");';
+//              
+//          }
     
     }
      else{

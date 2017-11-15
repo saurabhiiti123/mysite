@@ -5,16 +5,17 @@
     $query="select * from Exam where exam_id=$eid";
     $ele=mysqli_query($conn,$query);
     $row=mysqli_fetch_assoc($ele);
+                                        
     	
         if(isset($_POST["ans_1"]))
         {
             if(strtolower($_POST["ans_1"])==$row["ans_1"])
-                $score=$score+10;
+                $score=$score+$row["min_qualify_marks"]*.4;
         }
         if(isset($_POST["ans_2"]))
         {
             if(strtolower($_POST["ans_2"])==$row["ans_2"])
-                $score=$score+20;
+                $score=$score+$row["min_qualify_marks"]*.6;
         }
         
         echo '<script>window.alert(" Your score : '.$score.'");</script>';

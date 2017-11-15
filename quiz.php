@@ -22,6 +22,10 @@
 
        
         mysqli_close($conn);
+        if($row==NULL){
+            echo '<script>alert("This facility is not yet made by the Instructor.");
+            window.location.assign("course_page.php");</script>';
+        }
    
 
 ?>

@@ -80,7 +80,7 @@ li:hover{
         $row=mysqli_query($conn,$sql);
         while(($ele=mysqli_fetch_assoc($row))!=null){
             $course_name=$ele["course_name"];
-           echo '  <div style=";height: 300px;padding:15px;width:24%;float: left;margin-right: 40px;background-color:transparent" class="Courses">
+           echo '  <div style=";height: 300px;padding:20px;width:24%;float: left;margin-right: 40px;background-color:transparent" class="Courses">
 			<img src="images/b1.jpg" alt="Machine Learning">
 			<br><p style="font-size: 150%;"><a href="session_write.php?c_id='.$ele["course_id"].'" style="text-decoration: none;color: black;"><br>'.$course_name.'</a></p>
 		</div>';
